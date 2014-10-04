@@ -9,7 +9,14 @@ class PostsController < ApplicationController
     end
 
     def create
-        post = Post.create(params[:post].permit(:image, :title, :description))
+        post = Post.create(params[:post].permit(:image, :description))
+        redirect_to posts_path
+    end
+
+    def destroy
+        @post = Post.find(params[:id])
+        @post.destroy
+        flash[:notice] = "Photo deleted successfully"
         redirect_to posts_path
     end
 

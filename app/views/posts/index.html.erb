@@ -1,8 +1,8 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
   <%= image_tag post.image.url(:medium) %>
-  <%= post.title %>
   <%= post.description %>
+  <%= link_to 'Delete photo', post_path(post), method: :delete %>
   <% end %>
 <% else %>
   No photos yet

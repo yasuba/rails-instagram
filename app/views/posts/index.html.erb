@@ -1,11 +1,12 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
   <%= image_tag post.image.url(:medium) %>
-  <%= post.description %>
+  <p><%= post.description %></p>
+  <p>Posted <%= time_ago_in_words(post.created_at)%> ago</p>
   <%= link_to 'Delete photo', post_path(post), method: :delete %>
   <% end %>
 <% else %>
   No photos yet
 <% end %>
 
-<%= link_to "Post a picture", new_post_path %>
+<%= link_to "Post a photo", new_post_path %>

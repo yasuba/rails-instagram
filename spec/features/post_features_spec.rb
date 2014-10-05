@@ -1,24 +1,22 @@
 require 'rails_helper'
+require 'time_ago_in_words'
 
 describe 'posts' do
 
-    context 'no posts added yet' do
+    context 'before any posts are added' do
 
         it 'should display a prompt to add a post' do
             visit '/posts'
             expect(page).to have_content 'No photos yet'
-            expect(page).to have_link 'Post a picture'
+            expect(page).to have_link 'Post a photo'
         end
 
     end
 
-    context 'displaying posts' do
+    context 'once posts have been added' do
 
-        before do
+        it 'posts should be displayed' do
             Post.create(description: "A photo of my breakfast")
-        end
-
-        it 'should display the post' do
             visit '/posts'
             expect(page).to have_content "A photo of my breakfast"
             expect(page).not_to have_content "No posts yet"
@@ -26,11 +24,11 @@ describe 'posts' do
 
     end
 
-    context 'adding posts' do
+    context 'when adding posts' do
 
         it 'prompts the user to fill in a form, then displays the post' do
             visit '/posts'
-            click_link 'Post a picture'
+            click_link 'Post a photo'
             attach_file('Image', 'spec/features/breakfast.jpg')
             fill_in 'Description', with: 'A photo of my breakfast'
             click_button 'Submit photo'
@@ -40,7 +38,7 @@ describe 'posts' do
 
     end
 
-    context 'deleting posts' do
+    context 'when deleting posts' do
 
         before do
             Post.create(description: "A photo of my breakfast")

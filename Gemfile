@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem "paperclip", "~> 4.2"
+gem 'devise'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
@@ -30,6 +31,7 @@ gem 'spring',        group: :development
 group :development, :test do
     gem 'rspec-rails'
     gem 'capybara'
+    gem 'time_ago_in_words'
 
 end
 

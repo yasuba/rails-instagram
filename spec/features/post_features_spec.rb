@@ -1,5 +1,7 @@
 require 'rails_helper'
-require 'time_ago_in_words'
+require_relative '../helpers/user_helpers.rb'
+
+include UserHelpers
 
 describe 'posts' do
 
@@ -16,8 +18,8 @@ describe 'posts' do
     context 'once posts have been added' do
 
         it 'posts should be displayed' do
-            Post.create(description: "A photo of my breakfast")
-            visit '/posts'
+            sign_up
+            post_photo
             expect(page).to have_content "A photo of my breakfast"
             expect(page).not_to have_content "No posts yet"
         end
@@ -27,31 +29,30 @@ describe 'posts' do
     context 'when adding posts' do
 
         it 'prompts the user to fill in a form, then displays the post' do
-            visit '/posts'
-            click_link 'Post a photo'
-            attach_file('Image', 'spec/features/breakfast.jpg')
-            fill_in 'Description', with: 'A photo of my breakfast'
-            click_button 'Submit photo'
+            sign_up
+            post_photo
             expect(page).to have_css 'img'
             expect(current_path).to eq '/posts'
+        end
+
+        it 'should display the user who posted the photo' do
+            sign_up
+            post_photo
+            expect(page).to have_content 'andrew@gmail.com'
         end
 
     end
 
     context 'when deleting posts' do
 
-        before do
-            Post.create(description: "A photo of my breakfast")
-        end
-
         it 'removes a post when the user clicks delete photo' do
-            visit '/posts'
+            sign_up
+            post_photo
             click_link 'Delete photo'
             expect(page).not_to have_css 'img'
             expect(page).to have_content 'Photo deleted successfully'
         end
 
     end
-
 
 end

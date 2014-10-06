@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
 
+    before_action :authenticate_user!, :except => [:index]
+
     def index
         @posts = Post.all
     end
@@ -9,7 +11,7 @@ class PostsController < ApplicationController
     end
 
     def create
-        post = Post.create(params[:post].permit(:image, :description))
+        current_user.posts.create(params[:post].permit(:image, :description))
         redirect_to posts_path
     end
 

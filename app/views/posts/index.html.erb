@@ -5,12 +5,11 @@
   <p><%= post.user.email %></p>
   <p>Posted <%= time_ago_in_words(post.created_at)%> ago</p>
   <p><%= post.description %></p>
+  <% post.comments.each do |comment| %>
+    <p><%= "#{comment.user.email}" %></p>
+    <p><%= "#{comment.write_a_comment}" %></p>
+  <% end %>
   <%= link_to "Write a comment", new_post_comment_path(post) %>
-  <ul>
-    <% post.comments.each do |comment| %>
-      <li><%= "#{comment.write_a_comment}" %></li>
-    <% end %>
-  </ul>
   <%= link_to 'Delete photo', post_path(post), method: :delete %>
   <% end %>
 <% else %>

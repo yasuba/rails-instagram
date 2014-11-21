@@ -11,7 +11,6 @@ unless defined?(Spring)
     ENV["GEM_PATH"] = ([Bundler.bundle_path.to_s] + Gem.path).join(File::PATH_SEPARATOR)
     ENV["GEM_HOME"] = ""
     Gem.paths = ENV
-
     gem "spring", match[1]
     require "spring/binstub"
   end

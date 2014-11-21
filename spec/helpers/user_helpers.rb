@@ -18,6 +18,7 @@ module UserHelpers
   end
 
   def post_photo
+    visit '/'
     click_link "Post a photo"
     attach_file("Image", "spec/features/breakfast.jpg")
     fill_in "Description", with: "A photo of my breakfast"
